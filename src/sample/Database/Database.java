@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class Database {
-    private static final String CHECK_USER = "SELECT * FROM employeeID;";
+    private static final String CHECK_USER = "SELECT * FROM employeeID";
 
     private static Database dab = new Database();
 
