@@ -23,16 +23,15 @@
       <Pane prefHeight="518.0" prefWidth="720.0" GridPane.columnIndex="1">
          <children>
             <Button fx:id="logButtn" layoutX="355.0" layoutY="331.0" mnemonicParsing="false" onAction="#logIn" text="Login" />
-            <TextField layoutX="307.0" layoutY="255.0" onAction="#getName" />
             <Text layoutX="260.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name: " />
             <Text layoutX="242.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password: " />
-            <PasswordField layoutX="307.0" layoutY="289.0" onAction="#getPass" />
+            <TextField fx:id="name" layoutX="307.0" layoutY="255.0" />
+            <PasswordField fx:id="pass" layoutX="307.0" layoutY="289.0" />
             <ImageView fitHeight="191.0" fitWidth="200.0" layoutX="278.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img_logo.png" />
                </image>
             </ImageView>
-            <Text layoutX="367.0" layoutY="393.0" strokeType="OUTSIDE" strokeWidth="0.0" />
          </children>
       </Pane>
    </children>

@@ -3,22 +3,15 @@ package sample.Database;
 import sample.Employee;
 import sample.Globals;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Database {
-    private static final String CHECK_USER = "SELECT * FROM employeeID";
 
     private static Database dab = new Database();
+    private Database() {};
+    public static Database getInstance() { return dab; }
 
-    private Database() {
-    }
-
-    public static Database getInstance() {
-        return dab;
-    }
+    private static final String checkLoginSQL = "SELECT * FROM employee INNER JOIN loginEmployee ON employee.ID = loginEmployee.IDEmployee WHERE login LIKE ? AND password LIKE ?";
 
     private Connection getConn()
     {
@@ -51,20 +44,23 @@ public class Database {
         }
     }
 
-    public Employee getEmployee(String log, String pass) {
+    public Employee checkLogin(String login, String pass) {
         Connection conn = getConn();
 
         try {
-            PreparedStatement stm = conn.prepareStatement(CHECK_USER);
+            PreparedStatement stm = conn.prepareStatement(checkLoginSQL);
+            stm.setString(1, login);
+            stm.setString(2, pass);
 
-            stm.executeUpdate();
+            ResultSet result = stm.executeQuery();
 
-
-
-        } catch (Exception e) {
+            result.next();
+            Employee employee = new Employee(result.getString("fname"), result.getString("lname"), result.getInt("position"));
+            return employee;
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
+        return null;
     }
+
 }
