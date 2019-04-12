@@ -1,9 +1,12 @@
 package sample.Database;
 
+import sample.Client;
 import sample.Employee;
 import sample.Globals;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Database {
 
@@ -12,6 +15,7 @@ public class Database {
     public static Database getInstance() { return dab; }
 
     private static final String checkLoginSQL = "SELECT * FROM employee INNER JOIN loginEmployee ON employee.ID = loginEmployee.IDEmployee WHERE login LIKE ? AND password LIKE ?";
+    private static final String selectAllClients = "SELECT * FROM client INNER JOIN account ON client.ID = Account.IDClient";
 
     private Connection getConn()
     {
@@ -67,4 +71,24 @@ public class Database {
         return null;
     }
 
+    public List<Client> getAllClients() {
+        Connection conn = getConn();
+
+        try {
+            PreparedStatement stm = conn.prepareStatement(selectAllClients);
+
+            ResultSet result = stm.executeQuery();
+            List<Client> clients = new ArrayList<>();
+
+            while (result.next()) {
+                Client client = new Client(result.getString(1), result.getString(2), result.getString(3), result.getInt(5), result.getInt(6), Float.valueOf(result.getInt(7)));
+                clients.add(client);
+            }
+            return clients;
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

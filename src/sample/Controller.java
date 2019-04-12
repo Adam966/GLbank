@@ -26,7 +26,7 @@ public class Controller {
 
         if (employee instanceof Employee) {
             System.out.println("Succes");
-            mainPage(database.checkLogin(logName, logPass));
+            mainPage(employee);
         } else
             failedLogin.setText("Wrong password or Name");
     }
@@ -35,11 +35,16 @@ public class Controller {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("mainPage.fxml"));
+
             Scene scene = new Scene(fxmlLoader.load(), 802 , 605);
             Stage stage = new Stage();
             stage.setTitle("GL bank");
             stage.setScene(scene);
             stage.show();
+
+            MainPage con = fxmlLoader.getController();
+            con.setEmployee(employee);
+            con.whoIsLogged();
 
             Stage old = (Stage) name.getScene().getWindow();
             old.close();

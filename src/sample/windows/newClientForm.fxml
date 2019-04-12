@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="150.0" prefWidth="513.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.NewClientForm">
+   <children>
+      <Pane layoutX="-8.0" layoutY="4.0" prefHeight="225.0" prefWidth="520.0">
+         <children>
+            <Text layoutX="142.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name: ">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Text layoutX="142.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name: ">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Text>
+            <Text layoutX="142.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email: ">
+               <font>
+                  <Font size="16.0" />
+               </font></Text>
+            <TextField fx:id="fname" layoutX="230.0" layoutY="54.0" />
+            <TextField fx:id="lname" layoutX="230.0" layoutY="88.0" />
+            <TextField fx:id="email" layoutX="230.0" layoutY="123.0" />
+            <Text layoutX="167.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create new Client">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <Button layoutX="218.0" layoutY="172.0" mnemonicParsing="false" onAction="#createClient" text="Create Client" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
