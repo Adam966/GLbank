@@ -54,12 +54,16 @@ public class Database {
 
             ResultSet result = stm.executeQuery();
 
-            result.next();
-            Employee employee = new Employee(result.getString("fname"), result.getString("lname"), result.getInt("position"));
-            return employee;
+            if(result.next() == true) {
+                Employee employee = new Employee(result.getString("fname"), result.getString("lname"), result.getInt("position"));
+                closeConn(conn);
+                employee.getfName();
+                return employee;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConn(conn);
         return null;
     }
 
