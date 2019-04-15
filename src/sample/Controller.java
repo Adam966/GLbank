@@ -48,6 +48,6 @@ public class Controller {
 
             Stage old = (Stage) name.getScene().getWindow();
             old.close();
-        } catch (IOException e) { }
+        } catch (IOException e) {}
     }
 }

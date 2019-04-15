@@ -22,14 +22,14 @@
     <children>
         <Pane prefHeight="518.0" prefWidth="720.0" GridPane.columnIndex="1">
             <children>
-                <Button fx:id="logButtn" layoutX="355.0" layoutY="331.0" mnemonicParsing="false" onAction="#logIn" text="Login" />
+                <Button fx:id="logBtn" layoutX="355.0" layoutY="331.0" mnemonicParsing="false" onAction="#logIn" text="Login" />
                 <Text layoutX="260.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name: " />
                 <Text layoutX="242.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password: " />
                 <TextField fx:id="name" layoutX="307.0" layoutY="255.0" />
                 <PasswordField fx:id="pass" layoutX="307.0" layoutY="289.0" />
-                <ImageView fitHeight="132.0" fitWidth="149.0" layoutX="311.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="136.0" fitWidth="241.0" layoutX="257.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../bank_background.jpg" />
+                        <Image url="@../img_logo.png" />
                     </image>
                 </ImageView>
             <Text fx:id="failedLogin" layoutX="310.0" layoutY="378.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="3.0" />

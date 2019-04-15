@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.Database.Database;
@@ -21,6 +22,13 @@ public class MainPage {
     public Text loggedAs;
 
     public ComboBox list;
+
+    public Text name;
+    public Text surname;
+    public Text email;
+
+    public Text accNum;
+    public Text money;
 
     Database database = Database.getInstance();
 
@@ -60,5 +68,32 @@ public class MainPage {
         list.setItems(clientBox);
     }
 
+    public void newClient() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("windows/newClientForm.fxml"));
+
+            Scene scene = new Scene(fxmlLoader.load(), 520 , 225);
+            Stage stage = new Stage();
+
+            stage.setTitle("GL bank");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {}
+    }
+
+    public void showClient() {
+        List<Client> clients = database.getAllClients();
+        name.setText(clients.get(list.getItems().indexOf(list.getValue())).getfName());
+        surname.setText(clients.get(list.getItems().indexOf(list.getValue())).getlName());
+        email.setText(clients.get(list.getItems().indexOf(list.getValue())).getEmail());
+    }
+
+    public void createNewAcc(MouseEvent mouseEvent) {
+        //accNum.setText(String.valueOf((long)(Math.random()*100000)));
+    }
+
+    public void createCard(MouseEvent mouseEvent) {
+    }
 }
 

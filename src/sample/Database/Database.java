@@ -13,9 +13,10 @@ public class Database {
     private static Database dab = new Database();
     private Database() {};
     public static Database getInstance() { return dab; }
-
     private static final String checkLoginSQL = "SELECT * FROM employee INNER JOIN loginEmployee ON employee.ID = loginEmployee.IDEmployee WHERE login LIKE ? AND password LIKE ?";
-    private static final String selectAllClients = "SELECT * FROM client INNER JOIN account ON client.ID = Account.IDClient";
+    private static final String selectAllClients = "SELECT * FROM client";
+    private static final String insertNewClient = "INSERT INTO client (fname, lname, email) " + "VALUES (?, ?, ?)";
+
 
     private Connection getConn()
     {
@@ -81,14 +82,33 @@ public class Database {
             List<Client> clients = new ArrayList<>();
 
             while (result.next()) {
-                Client client = new Client(result.getString(1), result.getString(2), result.getString(3), result.getInt(5), result.getInt(6), Float.valueOf(result.getInt(7)));
+                Client client = new Client(result.getString(1), result.getString(2), result.getString(3), result.getInt(4), null, 0);
                 clients.add(client);
             }
+            closeConn(conn);
             return clients;
 
         }catch (SQLException e) {
             e.printStackTrace();
         }
+        closeConn(conn);
         return null;
+    }
+
+    public void insertNewClient(String fName, String lName, String email) {
+        Connection conn = getConn();
+
+        try {
+            PreparedStatement stm = conn.prepareStatement(insertNewClient);
+            stm.setString(1, fName);
+            stm.setString(2, lName);
+            stm.setString(3, email);
+
+            stm.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        closeConn(conn);
     }
 }

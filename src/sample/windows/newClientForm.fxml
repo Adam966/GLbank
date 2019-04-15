@@ -33,7 +33,7 @@
                   <Font size="24.0" />
                </font>
             </Text>
-            <Button layoutX="218.0" layoutY="172.0" mnemonicParsing="false" onAction="#createClient" text="Create Client" />
+            <Button layoutX="218.0" layoutY="172.0" mnemonicParsing="false" onAction="#createClient" onMouseClicked="#closeWindow" text="Create Client" />
          </children>
       </Pane>
    </children>

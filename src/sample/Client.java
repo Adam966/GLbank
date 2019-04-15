@@ -5,11 +5,11 @@ public class Client {
     private String lName;
     private String email;
 
-    private int accNum;
+    private String accNum;
     private float amount;
     private int accID;
 
-    public Client(String fName, String lName, String email ,int accID ,int accNum, float money) {
+    public Client(String fName, String lName, String email ,int accID ,String accNum, float money) {
         this.fName = fName;
         this.lName = lName;
         this.accNum = accNum;
@@ -26,12 +26,20 @@ public class Client {
         return lName;
     }
 
-    public int getAccNum() {
+    public String getAccNum() {
         return accNum;
     }
 
     public float getMoney() {
         return amount;
+    }
+
+    public void setAccNum(String accNum) {
+        this.accNum = accNum;
+    }
+
+    public void setAmount(float amount) {
+        this.amount = amount;
     }
 
     public int getClientID() {
