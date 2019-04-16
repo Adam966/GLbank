@@ -51,20 +51,20 @@
                         <Text fx:id="name" layoutX="162.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="41.0" />
                         <Text fx:id="surname" layoutX="162.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="56.000015437603" />
                         <Text fx:id="email" layoutX="138.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="230.51171880960464" />
-                        <Button fx:id="accBtn" layoutX="412.0" layoutY="168.0" mnemonicParsing="false" onMouseClicked="#createNewAcc" text="Create New Account" />
-                        <Button fx:id="cardBtn" layoutX="412.0" layoutY="432.0" mnemonicParsing="false" onMouseClicked="#createCard" text="Create New Card" />
-                        <Text layoutX="412.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Number:">
+                        <Button fx:id="accBtn" layoutX="387.0" layoutY="168.0" mnemonicParsing="false" onMouseClicked="#createNewAcc" text="Create New Account" />
+                        <Button fx:id="cardBtn" layoutX="390.0" layoutY="432.0" mnemonicParsing="false" onMouseClicked="#createCard" text="Create New Card" />
+                        <Text layoutX="387.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Number:">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <Text fx:id="accNum" layoutX="566.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-                        <Text layoutX="412.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Account Balance: ">
+                        <Text layoutX="387.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Account Balance: ">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <Text layoutX="629.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Text fx:id="money" layoutX="629.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <ComboBox fx:id="accountList" layoutX="566.0" layoutY="84.0" onMouseClicked="#chooseAccount" prefWidth="150.0" promptText="Choose Account" />
                      </children></AnchorPane>
             </content>
           </Tab>

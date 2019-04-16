@@ -27,8 +27,8 @@ public class MainPage {
     public Text surname;
     public Text email;
 
-    public Text accNum;
     public Text money;
+    public ComboBox accountList;
 
     Database database = Database.getInstance();
 
@@ -90,10 +90,19 @@ public class MainPage {
     }
 
     public void createNewAcc(MouseEvent mouseEvent) {
-        //accNum.setText(String.valueOf((long)(Math.random()*100000)));
+
     }
 
     public void createCard(MouseEvent mouseEvent) {
+    }
+
+    public void chooseAccount(MouseEvent mouseEvent) {
+        List<Client> clients = database.getAllClients();
+
+        database.selectAccount(clients.get(list.getItems().indexOf(list.getValue())).getClientID());
+
+        ObservableList<String> accountBox = FXCollections.observableArrayList();
+        accountList.setItems(accountBox);
     }
 }
 

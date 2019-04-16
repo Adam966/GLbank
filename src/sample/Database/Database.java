@@ -15,7 +15,8 @@ public class Database {
     public static Database getInstance() { return dab; }
     private static final String checkLoginSQL = "SELECT * FROM employee INNER JOIN loginEmployee ON employee.ID = loginEmployee.IDEmployee WHERE login LIKE ? AND password LIKE ?";
     private static final String selectAllClients = "SELECT * FROM client";
-    private static final String insertNewClient = "INSERT INTO client (fname, lname, email) " + "VALUES (?, ?, ?)";
+    private static final String insertNewClient = "INSERT INTO client (fname, lname, email) VALUES (?, ?, ?)";
+    private static final String selectClientAccount = "SELECT * FROM client INNER JOIN account ON client.ID = account.IDClient WHERE client.ID LIKE ?";
 
 
     private Connection getConn()
@@ -105,6 +106,23 @@ public class Database {
             stm.setString(3, email);
 
             stm.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        closeConn(conn);
+    }
+
+    public void selectAccount(int ClientID) {
+        Connection conn = getConn();
+        System.out.println(ClientID);
+        try {
+            PreparedStatement stm = conn.prepareStatement(selectClientAccount);
+            stm.setInt(1, ClientID);
+
+            ResultSet result = stm.executeQuery();
+            result.next();
+            System.out.println(result.getString(6));
 
         } catch (SQLException e) {
             e.printStackTrace();
