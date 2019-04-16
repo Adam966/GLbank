@@ -17,6 +17,7 @@ public class Database {
     private static final String selectAllClients = "SELECT * FROM client";
     private static final String insertNewClient = "INSERT INTO client (fname, lname, email) VALUES (?, ?, ?)";
     private static final String selectClientAccount = "SELECT * FROM client INNER JOIN account ON client.ID = account.IDClient WHERE client.ID LIKE ?";
+    private static final String insertNewAccount = "INSERT INTO account (accNum, amount, IDClient) VALUES (?, ?, ?)";
 
 
     private Connection getConn()
@@ -113,7 +114,7 @@ public class Database {
         closeConn(conn);
     }
 
-    public void selectAccount(int ClientID) {
+    public ResultSet selectAccount(int ClientID) {
         Connection conn = getConn();
         System.out.println(ClientID);
         try {
@@ -121,12 +122,25 @@ public class Database {
             stm.setInt(1, ClientID);
 
             ResultSet result = stm.executeQuery();
-            result.next();
-            System.out.println(result.getString(6));
-
+            return result;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         closeConn(conn);
+        return null;
+    }
+
+    public void inserNewAccount(int ClientID, String accNum, float money) {
+        Connection conn = getConn();
+
+        try {
+            PreparedStatement stm = conn.prepareStatement(insertNewAccount);
+            stm.setString(1, accNum);
+            stm.setFloat(2, money);
+            stm.setInt(3, ClientID);
+            stm.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

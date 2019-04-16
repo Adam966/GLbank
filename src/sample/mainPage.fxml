@@ -31,7 +31,7 @@
           </Tab>
           <Tab text="Client">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" onMouseEntered="#showClient" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Text layoutX="67.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Meno: ">
                            <font>
@@ -103,7 +103,7 @@
       <Text fx:id="loggedAs" layoutX="644.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="85.51170681416988" />
       <Text fx:id="date" layoutX="408.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date: " />
       <Button fx:id="logOutbtn" layoutX="739.0" layoutY="5.0" mnemonicParsing="false" onAction="#logOut" text="LogOut" />
-      <ComboBox fx:id="list" layoutX="160.0" layoutY="5.0" onMouseClicked="#listAllClients" prefWidth="150.0" promptText="Choose Client" />
+      <ComboBox fx:id="list" layoutX="160.0" layoutY="5.0" onAction="#showClient" onMouseClicked="#listAllClients" prefWidth="150.0" promptText="Choose Client" />
       <Button layoutX="319.0" layoutY="5.0" mnemonicParsing="false" onMouseClicked="#newClient" text="New Client" />
    </children>
 </AnchorPane>
