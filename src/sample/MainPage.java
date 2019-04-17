@@ -11,10 +11,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.Database.Database;
-
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -94,23 +94,36 @@ public class MainPage {
 
     public void createNewAcc(MouseEvent mouseEvent) {
         List<Client> clients = database.getAllClients();
-        long number = (long) Math.floor(Math.random() * 9_000_000_000L) + 1_000_000_000L;
+        long number = (long) Math.floor(Math.random() * 9_000_000_000_000_000L) + 1_000_000_000_000_000L;
 
-        database.inserNewAccount(clients.get(list.getItems().indexOf(list.getValue())).getClientID(), String.valueOf(number), 0);
+        database.inserNewAccount(clients.get(list.getItems().indexOf(list.getValue())).getID(), String.valueOf(number), 0);
     }
 
     public void createCard(MouseEvent mouseEvent) {
+        System.out.println((long) Math.floor(Math.random() * 9_000_000_000_000_000L) + 1_000_000_000_000_000L);
+        Random random = new Random();
+
+        int randomNumber = random.nextInt(10000);
+        System.out.println(randomNumber);
+
     }
 
     public void chooseAccount(MouseEvent mouseEvent) throws SQLException {
         List<Client> clients = database.getAllClients();
-        ResultSet result = database.selectAccount(clients.get(list.getItems().indexOf(list.getValue())).getClientID());
+        List<Account> accounts = database.selectAccount(clients.get(list.getItems().indexOf(list.getValue())).getID());
 
         ObservableList<String> accountBox = FXCollections.observableArrayList();
-        result.next();
-        accountBox.add(0, String.valueOf(result.getString(6)));
+
+        for ( Account acc : accounts) {
+            accountBox.add(acc.getAccNum());
+        }
+
+        for (Account acc : accounts) {
+            if (acc.getAccNum().equals(accountList.getValue())) {
+                money.setText(String.valueOf(acc.getMoney()));
+            }
+        }
         accountList.setItems(accountBox);
-        money.setText(String.valueOf(result.getFloat(7)));
     }
 }
 

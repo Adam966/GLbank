@@ -1,5 +1,6 @@
 package sample.Database;
 
+import sample.Account;
 import sample.Client;
 import sample.Employee;
 import sample.Globals;
@@ -16,7 +17,7 @@ public class Database {
     private static final String checkLoginSQL = "SELECT * FROM employee INNER JOIN loginEmployee ON employee.ID = loginEmployee.IDEmployee WHERE login LIKE ? AND password LIKE ?";
     private static final String selectAllClients = "SELECT * FROM client";
     private static final String insertNewClient = "INSERT INTO client (fname, lname, email) VALUES (?, ?, ?)";
-    private static final String selectClientAccount = "SELECT * FROM client INNER JOIN account ON client.ID = account.IDClient WHERE client.ID LIKE ?";
+    private static final String selectClientAccount = "SELECT * FROM account WHERE IDClient LIKE ?";
     private static final String insertNewAccount = "INSERT INTO account (accNum, amount, IDClient) VALUES (?, ?, ?)";
 
 
@@ -84,7 +85,7 @@ public class Database {
             List<Client> clients = new ArrayList<>();
 
             while (result.next()) {
-                Client client = new Client(result.getString(1), result.getString(2), result.getString(3), result.getInt(4), null, 0);
+                Client client = new Client(result.getString(1), result.getString(2), result.getString(3), result.getInt(4));
                 clients.add(client);
             }
             closeConn(conn);
@@ -114,7 +115,7 @@ public class Database {
         closeConn(conn);
     }
 
-    public ResultSet selectAccount(int ClientID) {
+    public List<Account> selectAccount(int ClientID) {
         Connection conn = getConn();
         System.out.println(ClientID);
         try {
@@ -122,7 +123,13 @@ public class Database {
             stm.setInt(1, ClientID);
 
             ResultSet result = stm.executeQuery();
-            return result;
+            List<Account> accounts = new ArrayList<>();
+
+            while (result.next()) {
+                Account acc = new Account(result.getInt(1), result.getString(2), result.getFloat(3), result.getInt(4));
+                accounts.add(acc);
+            }
+            return accounts;
         } catch (SQLException e) {
             e.printStackTrace();
         }

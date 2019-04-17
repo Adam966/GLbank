@@ -27,9 +27,9 @@
                 <Text layoutX="242.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password: " />
                 <TextField fx:id="name" layoutX="307.0" layoutY="255.0" />
                 <PasswordField fx:id="pass" layoutX="307.0" layoutY="289.0" />
-                <ImageView fitHeight="136.0" fitWidth="241.0" layoutX="257.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="212.0" fitWidth="520.0" layoutX="118.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../img_logo.png" />
+                        <Image url="@../../logoGLbank.png" />
                     </image>
                 </ImageView>
             <Text fx:id="failedLogin" layoutX="310.0" layoutY="378.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="3.0" />
