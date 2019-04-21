@@ -52,7 +52,7 @@
                         <Text fx:id="surname" layoutX="162.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="56.000015437603" />
                         <Text fx:id="email" layoutX="138.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="230.51171880960464" />
                         <Button fx:id="accBtn" layoutX="387.0" layoutY="168.0" mnemonicParsing="false" onMouseClicked="#createNewAcc" text="Create New Account" />
-                        <Button fx:id="cardBtn" layoutX="391.0" layoutY="432.0" mnemonicParsing="false" onMouseClicked="#createCard" text="Create New Card" />
+                        <Button fx:id="cardBtn" layoutX="393.0" layoutY="461.0" mnemonicParsing="false" onMouseClicked="#createCard" text="Create New Card" />
                         <Text layoutX="387.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Number:">
                            <font>
                               <Font size="18.0" />
@@ -70,12 +70,34 @@
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <ComboBox fx:id="listCard" layoutX="566.0" layoutY="324.0" prefWidth="150.0" promptText="Choose Card" />
+                        <ComboBox fx:id="cardList" layoutX="566.0" layoutY="324.0" onMouseClicked="#showCards" prefWidth="150.0" promptText="Choose Card" />
                         <Text layoutX="716.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="€">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
+                        <Text layoutX="393.0" layoutY="380.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Card PIN: ">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="cardPin" layoutX="486.0" layoutY="377.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="394.0" layoutY="414.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expire Date: ">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="395.0" layoutY="447.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status: ">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="expireDate" layoutX="501.0" layoutY="411.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Text fx:id="status" layoutX="461.0" layoutY="444.0" strokeType="OUTSIDE" strokeWidth="0.0" />
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -86,7 +108,31 @@
             </Tab>
             <Tab text="Internet Banking">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text layoutX="64.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login: ">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Text>
+                        <Text layoutX="64.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Text>
+                        <Text layoutX="64.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last login: ">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Text>
+                        <Button fx:id="resetBtn" layoutX="209.0" layoutY="162.0" mnemonicParsing="false" onMouseClicked="#resetClientAccount" text="Reset" />
+                        <Text layoutX="64.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status: ">
+                           <font>
+                              <Font size="18.0" />
+                           </font></Text>
+                        <Text fx:id="IBstatus" layoutX="124.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="73.99999972898513" />
+                        <Text fx:id="lastLogin" layoutX="162.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="184.000015437603" />
+                        <Text fx:id="password" layoutX="162.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="63.13671875" />
+                        <Text fx:id="login" layoutX="136.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="56.000015437603" />
+                        <Button fx:id="showBtn" layoutX="65.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#showClientLogin" text="Show" />
+                     </children></AnchorPane>
               </content>
             </Tab>
         </tabs>
@@ -116,5 +162,6 @@
       <Button fx:id="logOutbtn" layoutX="739.0" layoutY="5.0" mnemonicParsing="false" onAction="#logOut" text="LogOut" />
       <ComboBox fx:id="list" layoutX="160.0" layoutY="5.0" onAction="#showClient" onMouseClicked="#listAllClients" prefWidth="150.0" promptText="Choose Client" />
       <Button layoutX="319.0" layoutY="5.0" mnemonicParsing="false" onMouseClicked="#newClient" text="New Client" />
+      <Text fx:id="date" layoutX="441.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="108.13671875" />
    </children>
 </AnchorPane>

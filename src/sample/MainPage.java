@@ -12,8 +12,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.Database.Database;
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -23,6 +23,7 @@ public class MainPage {
 
     public Button logOutbtn;
     public Text loggedAs;
+    public Text date;
 
     public ComboBox list;
 
@@ -32,6 +33,17 @@ public class MainPage {
 
     public Text money;
     public ComboBox accountList;
+
+    public ComboBox cardList;
+    public Text cardPin;
+    public Text status;
+    public Text expireDate;
+
+    public Text login;
+    public Text password;
+    public Text lastLogin;
+    public Text IBstatus;
+    public Button resetBtn;
 
     Database database = Database.getInstance();
 
@@ -58,17 +70,22 @@ public class MainPage {
         this.signedIn = signedIn;
     }
 
+    public void setDate() {
+        LocalDate today = LocalDate.now();
+        date.setText(today.getDayOfMonth() + "/" + today.getMonth() + "/" + today.getYear());
+    }
+
     public void listAllClients() {
         List<Client> clients;
         clients = database.getAllClients();
 
         ObservableList<String> clientBox = FXCollections.observableArrayList();
 
-        for (int i = 0; i < clients.size(); i++) {
-            clientBox.add(clients.get(i).getfName() + " " + clients.get(i).getlName());
+        for ( Client cl : clients) {
+            clientBox.add(cl.getfName() + " " + cl.getlName());
         }
-
         list.setItems(clientBox);
+        System.out.println("Size: " + list.getItems().size());
     }
 
     public void newClient() {
@@ -94,18 +111,26 @@ public class MainPage {
 
     public void createNewAcc(MouseEvent mouseEvent) {
         List<Client> clients = database.getAllClients();
-        long number = (long) Math.floor(Math.random() * 9_000_000_000_000_000L) + 1_000_000_000_000_000L;
-
+        long number = (long) Math.floor(Math.random() * 9_000_000_000L) + 1_000_000_000L;
+        System.out.println(list.getItems().size());
         database.inserNewAccount(clients.get(list.getItems().indexOf(list.getValue())).getID(), String.valueOf(number), 0);
     }
 
     public void createCard(MouseEvent mouseEvent) {
-        System.out.println((long) Math.floor(Math.random() * 9_000_000_000_000_000L) + 1_000_000_000_000_000L);
+        long cardNum = (long) Math.floor(Math.random() * 9_000_000_000_000_000L) + 1_000_000_000_000_000L;
+
         Random random = new Random();
+        int pin = random.nextInt(10000);
+        System.out.println(list.getItems().size());
+        List<Account> accounts = database.selectAccount(list.getItems().indexOf(list.getValue()) + 1);
 
-        int randomNumber = random.nextInt(10000);
-        System.out.println(randomNumber);
 
+        for (Account acc: accounts) {
+            if (acc.getAccNum().equals(accountList.getValue())) {
+                LocalDate today = LocalDate.now();
+                database.insertNewCard(String.valueOf(pin), 1, today.getYear() + 3, today.getMonthValue(), acc.getID(), String.valueOf(cardNum));
+            }
+        }
     }
 
     public void chooseAccount(MouseEvent mouseEvent) throws SQLException {
@@ -118,12 +143,58 @@ public class MainPage {
             accountBox.add(acc.getAccNum());
         }
 
+        accountList.setItems(accountBox);
+
         for (Account acc : accounts) {
             if (acc.getAccNum().equals(accountList.getValue())) {
-                money.setText(String.valueOf(acc.getMoney()));
+                money.setText(String.format("%.02f" , acc.getMoney()));
+            }
+            else {
+                money.setText("0.00");
             }
         }
-        accountList.setItems(accountBox);
+    }
+
+    public void showCards() {
+        List<Card> cards = database.selectAllCards(String.valueOf(accountList.getValue()));
+
+        ObservableList<String> cardsBox = FXCollections.observableArrayList();
+
+        for ( Card card : cards) {
+            cardsBox.add(card.getCardNum());
+        }
+
+        cardList.setItems(cardsBox);
+
+        cardPin.setText(cards.get(cardList.getItems().indexOf(cardList.getValue())).getPIN());
+        if (cards.get(cardList.getItems().indexOf(cardList.getValue())).isActive()) {
+            status.setText("aktívna");
+        }
+        else {
+            status.setText("neaktívna");
+        }
+        expireDate.setText(cards.get(cardList.getItems().indexOf(cardList.getValue())).getExpireM() + "/" + cards.get(cardList.getItems().indexOf(cardList.getValue())).getExpireY());
+    }
+
+    public void resetClientAccount(MouseEvent mouseEvent) {
+
+    }
+
+    public void showClientLogin() {
+        ClientLogin cl = database.selectClientLogin(list.getItems().indexOf(list.getValue()) + 1);
+
+        login.setText(cl.getLogin());
+        password.setText(cl.getPassword());
+
+        Date date = new Date(cl.getLastLogin().getTime());
+        lastLogin.setText(String.valueOf(date));
+
+        if (cl.getStatus()) {
+            IBstatus.setText("aktívný");
+        }
+        else {
+            IBstatus.setText("zablokovany");
+        }
     }
 }
 

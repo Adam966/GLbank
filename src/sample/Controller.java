@@ -44,6 +44,7 @@ public class Controller {
             MainPage con = fxmlLoader.getController();
             con.setEmployee(employee);
             con.whoIsLogged();
+            con.setDate();
 
             Stage old = (Stage) name.getScene().getWindow();
             old.close();

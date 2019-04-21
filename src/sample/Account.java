@@ -24,4 +24,6 @@ public class Account {
     public int getIDClient() {
         return IDClient;
     }
+
+    public int getID() { return ID; }
 }
