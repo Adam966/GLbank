@@ -19,6 +19,8 @@ public class Database {
     private static final String insertNewCard = "INSERT INTO card (PIN, active, expireY, expireM, IDAccount, cardNUm) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String selectAllCards = "SELECT * FROM card INNER JOIN account ON account.ID = card.IDAccount WHERE accNum LIKE ?";
     private static final String selectClientLogin = "SELECT * FROM loginClient INNER JOIN loginHistory ON loginClient.ID = loginHistory.IDLoginClient WHERE IDClient LIKE ?";
+    private static final String insertAccountStatus = "INSERT INTO loginHistory (success) VALUE (?) WHERE IDLoginClient IN (SELECT ID FROM loginClient WHERE IDClient LIKE ?)";
+    private static final String insertNewAccountPassword = "INSERT INTO loginClient (password) VALUE (?) WHERE IDClient  LIKE ?";
 
     private Connection getConn()
     {
@@ -209,5 +211,29 @@ public class Database {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void insertNewAccountPassword(int IDClient, String pass) {
+        Connection conn = getConn();
+
+        try {
+            PreparedStatement stm = conn.prepareStatement(insertNewAccountPassword);
+            stm.setString(1, pass);
+            stm.setInt(2, IDClient);
+
+            stm.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            PreparedStatement stm = conn.prepareStatement(insertAccountStatus);
+            stm.setBoolean(1, true);
+            stm.setInt(2, IDClient);
+
+            stm.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -44,6 +44,7 @@ public class MainPage {
     public Text lastLogin;
     public Text IBstatus;
     public Button resetBtn;
+    public Text newPassword;
 
     Database database = Database.getInstance();
 
@@ -177,7 +178,21 @@ public class MainPage {
     }
 
     public void resetClientAccount(MouseEvent mouseEvent) {
+        ClientLogin cl = database.selectClientLogin(list.getItems().indexOf(list.getValue()) + 1);
 
+        if (!cl.getStatus()) {
+            String chars = "ab7c0de2fgh1ijklm4n3opq5rst6uv8wxyz9";
+            String password = "";
+
+            for (int i = 0; i < 8; i++) {
+                if (i % 2 == 0)
+                    password+= Character.toString(chars.charAt((int)(Math.floor(Math.random() * 36))));
+                else
+                    password+= Character.toString(chars.charAt((int)(Math.floor(Math.random() * 36)))).toUpperCase();
+            }
+            database.insertNewAccountPassword(list.getItems().indexOf(list.getValue()) + 1, password);
+            newPassword.setText("Account was reseted and new password is " + password);
+        }
     }
 
     public void showClientLogin() {
