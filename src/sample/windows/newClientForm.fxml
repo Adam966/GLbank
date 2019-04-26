@@ -7,33 +7,39 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="150.0" prefWidth="513.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.NewClientForm">
+<AnchorPane prefHeight="255.0" prefWidth="412.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.NewClientForm">
    <children>
-      <Pane layoutX="-8.0" layoutY="4.0" prefHeight="225.0" prefWidth="520.0">
+      <Pane layoutY="-24.0" prefHeight="279.0" prefWidth="478.0">
          <children>
-            <Text layoutX="142.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name: ">
+            <Text layoutX="121.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name: ">
                <font>
                   <Font size="16.0" />
                </font>
             </Text>
-            <Text layoutX="142.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name: ">
+            <Text layoutX="121.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name: ">
                <font>
                   <Font size="16.0" />
                </font>
             </Text>
-            <Text layoutX="142.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email: ">
+            <Text layoutX="121.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email: ">
                <font>
                   <Font size="16.0" />
                </font></Text>
-            <TextField fx:id="fname" layoutX="230.0" layoutY="54.0" />
-            <TextField fx:id="lname" layoutX="230.0" layoutY="88.0" />
-            <TextField fx:id="email" layoutX="230.0" layoutY="123.0" />
-            <Text layoutX="167.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create new Client">
+            <TextField fx:id="fname" layoutX="209.0" layoutY="77.0" />
+            <TextField fx:id="lname" layoutX="209.0" layoutY="111.0" />
+            <TextField fx:id="email" layoutX="209.0" layoutY="146.0" />
+            <Text layoutX="146.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create new Client">
                <font>
                   <Font size="24.0" />
                </font>
             </Text>
-            <Button layoutX="218.0" layoutY="172.0" mnemonicParsing="false" onAction="#createClient" onMouseClicked="#closeWindow" text="Create Client" />
+            <Button layoutX="197.0" layoutY="230.0" mnemonicParsing="false" onAction="#createClient" onMouseClicked="#closeWindow" text="Create Client" />
+            <Text layoutX="121.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IB name: ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <TextField fx:id="IBName" layoutX="209.0" layoutY="180.0" />
          </children>
       </Pane>
    </children>

@@ -121,10 +121,9 @@ public class MainPage {
         long cardNum = (long) Math.floor(Math.random() * 9_000_000_000_000_000L) + 1_000_000_000_000_000L;
 
         Random random = new Random();
-        int pin = random.nextInt(10000);
+        int pin = random.nextInt(10001);
         System.out.println(list.getItems().size());
         List<Account> accounts = database.selectAccount(list.getItems().indexOf(list.getValue()) + 1);
-
 
         for (Account acc: accounts) {
             if (acc.getAccNum().equals(accountList.getValue())) {
@@ -168,6 +167,7 @@ public class MainPage {
         cardList.setItems(cardsBox);
 
         cardPin.setText(cards.get(cardList.getItems().indexOf(cardList.getValue())).getPIN());
+
         if (cards.get(cardList.getItems().indexOf(cardList.getValue())).isActive()) {
             status.setText("aktívna");
         }

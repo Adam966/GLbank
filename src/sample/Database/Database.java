@@ -16,11 +16,12 @@ public class Database {
     private static final String insertNewClient = "INSERT INTO client (fname, lname, email) VALUES (?, ?, ?)";
     private static final String selectClientAccount = "SELECT * FROM account WHERE IDClient LIKE ?";
     private static final String insertNewAccount = "INSERT INTO account (accNum, amount, IDClient) VALUES (?, ?, ?)";
-    private static final String insertNewCard = "INSERT INTO card (PIN, active, expireY, expireM, IDAccount, cardNUm) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String insertNewCard = "INSERT INTO card (PIN, active, expireY, expireM, IDAccount, cardNum) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String selectAllCards = "SELECT * FROM card INNER JOIN account ON account.ID = card.IDAccount WHERE accNum LIKE ?";
     private static final String selectClientLogin = "SELECT * FROM loginClient INNER JOIN loginHistory ON loginClient.ID = loginHistory.IDLoginClient WHERE IDClient LIKE ?";
     private static final String insertAccountStatus = "INSERT INTO loginHistory (success) VALUE (?) WHERE IDLoginClient IN (SELECT ID FROM loginClient WHERE IDClient LIKE ?)";
     private static final String insertNewAccountPassword = "INSERT INTO loginClient (password) VALUE (?) WHERE IDClient  LIKE ?";
+    private static final String insertNewIBClient = "INSERT INTO loginClient (login, password, IDClient) VALUE (?, ? ,?)";
 
     private Connection getConn()
     {
@@ -233,6 +234,17 @@ public class Database {
 
             stm.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void insertNewIBClient(String pass, int IDClient) {
+        Connection conn = getConn();
+
+        try {
+            PreparedStatement stm = conn.prepareStatement(insertNewIBClient);
+            stm.setString();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
