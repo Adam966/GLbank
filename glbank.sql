@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hostiteľ: 127.0.0.1:3306
--- Čas generovania: St 17.Apr 2019, 13:26
+-- Čas generovania: Ne 28.Apr 2019, 21:07
 -- Verzia serveru: 5.7.23
 -- Verzia PHP: 7.2.10
 
@@ -36,19 +36,21 @@ CREATE TABLE IF NOT EXISTS `account` (
   `IDClient` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `IDClient` (`IDClient`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Sťahujem dáta pre tabuľku `account`
 --
 
 INSERT INTO `account` (`ID`, `AccNum`, `amount`, `IDClient`) VALUES
-(1, '1234567891', 788.45, 1),
+(1, '1234567891', 788.455, 1),
 (2, '8795461238', 789.98, 1),
 (3, '1285077246', 0, 9),
 (4, '1775286084', 0, 1),
 (5, '4486823488', 0, 10),
-(6, '5539236439', 0, 10);
+(6, '5539236439', 0, 10),
+(7, '7610106905', 0, 9),
+(8, '3998384665', 256, 9);
 
 -- --------------------------------------------------------
 
@@ -64,9 +66,22 @@ CREATE TABLE IF NOT EXISTS `card` (
   `expireY` int(11) NOT NULL,
   `expireM` int(11) NOT NULL,
   `IDAccount` int(11) NOT NULL,
+  `cardNum` varchar(16) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `IDAccount` (`IDAccount`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
+--
+-- Sťahujem dáta pre tabuľku `card`
+--
+
+INSERT INTO `card` (`ID`, `PIN`, `active`, `expireY`, `expireM`, `IDAccount`, `cardNum`) VALUES
+(1, '4567', 1, 2022, 4, 3, '7985453248717632'),
+(2, '7057', 1, 2022, 4, 3, '2383418644929040'),
+(4, '1847', 1, 2022, 4, 7, '3810660592928821'),
+(5, '3280', 1, 2022, 4, 7, '1451534317008860'),
+(7, '6732', 1, 2022, 4, 8, '5275027354977746'),
+(8, '7309', 1, 2022, 4, 8, '5062218769072043');
 
 -- --------------------------------------------------------
 
@@ -97,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `client` (
   `email` varchar(30) NOT NULL,
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 --
 -- Sťahujem dáta pre tabuľku `client`
@@ -168,10 +183,18 @@ CREATE TABLE IF NOT EXISTS `loginclient` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(30) NOT NULL,
   `password` varchar(30) NOT NULL,
+  `status` tinyint(1) NOT NULL,
   `IDClient` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `IDClient` (`IDClient`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Sťahujem dáta pre tabuľku `loginclient`
+--
+
+INSERT INTO `loginclient` (`ID`, `login`, `password`, `status`, `IDClient`) VALUES
+(1, 'adam', 'i2n4vOuV', 1, 9);
 
 -- --------------------------------------------------------
 
@@ -209,8 +232,16 @@ CREATE TABLE IF NOT EXISTS `loginhistory` (
   `success` tinyint(1) NOT NULL,
   `IDLoginClient` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
-  KEY `IDLoginClient` (`IDLoginClient`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  KEY `IDLoginClient` (`IDLoginClient`),
+  KEY `ID` (`ID`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Sťahujem dáta pre tabuľku `loginhistory`
+--
+
+INSERT INTO `loginhistory` (`loginTime`, `ID`, `success`, `IDLoginClient`) VALUES
+('2019-04-21 22:09:49', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -234,15 +265,22 @@ CREATE TABLE IF NOT EXISTS `positions` (
 DROP TABLE IF EXISTS `transaction`;
 CREATE TABLE IF NOT EXISTS `transaction` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `transAmount` int(11) NOT NULL,
+  `transAmount` float NOT NULL,
   `transDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `RecAccount` int(11) NOT NULL,
+  `RecAccount` varchar(15) NOT NULL,
   `IDAccount` int(11) NOT NULL,
   `IDEmployee` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `IDAccount` (`IDAccount`),
   KEY `IDEmployee` (`IDEmployee`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Sťahujem dáta pre tabuľku `transaction`
+--
+
+INSERT INTO `transaction` (`ID`, `transAmount`, `transDate`, `RecAccount`, `IDAccount`, `IDEmployee`) VALUES
+(1, 256, '2019-04-28 20:05:59', '4587123', 3, 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -2,8 +2,12 @@ package sample;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import sample.Database.Database;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class NewClientForm {
 
@@ -11,24 +15,31 @@ public class NewClientForm {
     public TextField lname;
     public TextField email;
     public TextField IBName;
+    public TextField password;
+    public TextField Repassword;
+    public Text wrongPass;
+    public Text regex;
 
     Database database = Database.getInstance();
 
     public void createClient(ActionEvent actionEvent) {
-        database.insertNewClient(fname.getText(), lname.getText(), email.getText());
-    }
+        String pattern = "[A-Za-z0-9]";
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(password.getText());
 
-    public String createIBClient() {
-        String chars = "ab7c0de2fgh1ijklm4n3opq5rst6uv8wxyz9";
-        String password = "";
-
-        for (int i = 0; i < 8; i++) {
-            if (i % 2 == 0)
-                password+= Character.toString(chars.charAt((int)(Math.floor(Math.random() * 36))));
+        if (m.matches()) {
+            if (password.getText().equals(Repassword.getText())) {
+                database.insertNewClient(fname.getText(), lname.getText(), email.getText(), password.getText(), IBName.getText());
+                regex.setText("");
+                closeWindow();
+            }
             else
-                password+= Character.toString(chars.charAt((int)(Math.floor(Math.random() * 36)))).toUpperCase();
-        }
-        return password;
+                wrongPass.setText("Passwords are diffrent");
+        } else
+            regex.setText("Password must contain upper and lower letters and numbers");
+
+
+
     }
 
     public void closeWindow() {

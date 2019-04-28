@@ -7,14 +7,16 @@ public class Card {
     private int expireM;
     private int IDAccount;
     private String cardNum;
+    private int ID;
 
-    public Card(String PIN, boolean active, int expireY, int expireM, int IDAccount, String cardNum) {
+    public Card(String PIN, boolean active, int expireY, int expireM, int IDAccount, String cardNum, int ID) {
         this.PIN = PIN;
         this.active = active;
         this.expireY = expireY;
         this.expireM = expireM;
         this.IDAccount = IDAccount;
         this.cardNum = cardNum;
+        this.ID = ID;
     }
 
     public String getPIN() {
@@ -39,5 +41,9 @@ public class Card {
 
     public String getCardNum() {
         return cardNum;
+    }
+
+    public int getID() {
+        return ID;
     }
 }

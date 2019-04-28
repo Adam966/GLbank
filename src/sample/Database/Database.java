@@ -2,6 +2,7 @@ package sample.Database;
 
 import sample.*;
 
+import java.lang.reflect.Executable;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +20,12 @@ public class Database {
     private static final String insertNewCard = "INSERT INTO card (PIN, active, expireY, expireM, IDAccount, cardNum) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String selectAllCards = "SELECT * FROM card INNER JOIN account ON account.ID = card.IDAccount WHERE accNum LIKE ?";
     private static final String selectClientLogin = "SELECT * FROM loginClient INNER JOIN loginHistory ON loginClient.ID = loginHistory.IDLoginClient WHERE IDClient LIKE ?";
-    private static final String insertAccountStatus = "INSERT INTO loginHistory (success) VALUE (?) WHERE IDLoginClient IN (SELECT ID FROM loginClient WHERE IDClient LIKE ?)";
-    private static final String insertNewAccountPassword = "INSERT INTO loginClient (password) VALUE (?) WHERE IDClient  LIKE ?";
-    private static final String insertNewIBClient = "INSERT INTO loginClient (login, password, IDClient) VALUE (?, ? ,?)";
+    private static final String insertAccountStatus = "UPDATE loginClient SET status = ? WHERE IDClient LIKE ?";
+    private static final String insertNewAccountPassword = "UPDATE loginClient SET password = ? WHERE IDClient  LIKE ?";
+    private static final String insertNewIBClient = "INSERT INTO loginClient (login, password, IDClient) VALUE (?, ?, @@Identity)";
+    private static final String insertMoney = "UPDATE account SET amount =  ? WHERE ID LIKE ?";
+    private static final String setSelectAllTransaction = "SELECT * FROM transaction WHERE IDAccount LIKE ?";
+    private static final String setSelectAllCardTransaction = "SELECT * FROM cardTrans WHERE IDCard LIKE ?";
 
     private Connection getConn()
     {
@@ -100,7 +104,7 @@ public class Database {
         return null;
     }
 
-    public void insertNewClient(String fName, String lName, String email) {
+    public void insertNewClient(String fName, String lName, String email, String name, String pass) {
         Connection conn = getConn();
 
         try {
@@ -114,6 +118,17 @@ public class Database {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        try {
+            PreparedStatement stm = conn.prepareStatement(insertNewIBClient);
+            stm.setString(1, name);
+            stm.setString(2, pass);
+
+            stm.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         closeConn(conn);
     }
 
@@ -184,7 +199,7 @@ public class Database {
             List<Card> cards = new ArrayList<>();
 
             while (rs.next()) {
-                Card card = new Card(rs.getString(2), rs.getBoolean(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getString(7));
+                Card card = new Card(rs.getString(2), rs.getBoolean(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getString(7), rs.getInt(1));
                 cards.add(card);
             }
             return cards;
@@ -205,7 +220,7 @@ public class Database {
             ResultSet rs = stm.executeQuery();
 
             if (rs.next()) {
-                ClientLogin cl = new ClientLogin(rs.getString(2), rs.getString(3), rs.getBoolean(7), rs.getTimestamp(5));
+                ClientLogin cl = new ClientLogin(rs.getString(2), rs.getString(3), rs.getBoolean(4), rs.getTimestamp(6));
                 return cl;
             }
         } catch (SQLException e) {
@@ -238,14 +253,60 @@ public class Database {
         }
     }
 
-    public void insertNewIBClient(String pass, int IDClient) {
+    public void insertMoney(float money, int IDAccount) {
         Connection conn = getConn();
 
         try {
-            PreparedStatement stm = conn.prepareStatement(insertNewIBClient);
-            stm.setString();
-        } catch (Exception e) {
+            PreparedStatement stm = conn.prepareStatement(insertMoney);
+            stm.setFloat(1, money);
+            stm.setInt(2, IDAccount);
+
+            stm.executeUpdate();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+    public List<Transaction> selectAllTransaction(int IDAcc) {
+        Connection conn = getConn();
+
+        try {
+            PreparedStatement stm = conn.prepareStatement(setSelectAllTransaction);
+            stm.setInt(1, IDAcc);
+
+            ResultSet rs = stm.executeQuery();
+
+            List<Transaction> transactions = new ArrayList<>();
+            while (rs.next()) {
+                Transaction tr = new Transaction(rs.getFloat(2), rs.getTimestamp(3), rs.getString(4), rs.getInt(5));
+                transactions.add(tr);
+            }
+            return transactions;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<CardTransaction> selectAllCardTransaction(int IDCard) {
+        Connection conn = getConn();
+
+        try {
+            PreparedStatement stm = conn.prepareStatement(setSelectAllCardTransaction);
+            stm.setInt(1, IDCard);
+
+            ResultSet rs = stm.executeQuery();
+
+            List<CardTransaction> cardTransactions = new ArrayList<>();
+            while (rs.next()) {
+                CardTransaction ctr = new CardTransaction(rs.getTimestamp(1), rs.getFloat(2), rs.getInt(3));
+                cardTransactions.add(ctr);
+            }
+            return cardTransactions;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
