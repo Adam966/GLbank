@@ -23,12 +23,12 @@ public class NewClientForm {
     Database database = Database.getInstance();
 
     public void createClient(ActionEvent actionEvent) {
-        String pattern = "[A-Za-z0-9]";
+        String pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$";
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(password.getText());
 
         if (m.matches()) {
-            if (password.getText().equals(Repassword.getText())) {
+            if (password.getText() != Repassword.getText()) {
                 database.insertNewClient(fname.getText(), lname.getText(), email.getText(), password.getText(), IBName.getText());
                 regex.setText("");
                 closeWindow();
@@ -37,9 +37,6 @@ public class NewClientForm {
                 wrongPass.setText("Passwords are diffrent");
         } else
             regex.setText("Password must contain upper and lower letters and numbers");
-
-
-
     }
 
     public void closeWindow() {

@@ -109,6 +109,10 @@
                         <Button fx:id="insertBtn" layoutX="320.0" layoutY="333.0" mnemonicParsing="false" onAction="#insertMoney" text="Insert" />
                         <Button fx:id="WidthBtn" layoutX="321.0" layoutY="370.0" mnemonicParsing="false" onAction="#moneyWithdraw" text="Widthraw" />
                         <Text fx:id="lesserMoney" layoutX="102.0" layoutY="429.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="150.0000087916851" />
+                        <Text fx:id="accountDesc" layoutX="390.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New account was created." visible="false" wrappingWidth="258.0000087916851" />
+                        <Text fx:id="moneyDesc" layoutX="80.0" layoutY="422.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Money was insert/widthraw" visible="false" wrappingWidth="258.13671875" />
+                        <Text fx:id="cardDesc" layoutX="394.0" layoutY="507.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New card was created" visible="false" wrappingWidth="261.13671875" />
+                        <Text fx:id="clientDesc" layoutX="14.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New client was created." visible="false" wrappingWidth="215.0" />
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -116,34 +120,34 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Text layoutX="29.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Transsaction Amount:">
+                        <Text layoutX="21.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Transsaction Amount:">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <Text layoutX="29.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Transaction Date:">
+                        <Text layoutX="21.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Transaction Date:">
                            <font>
                               <Font size="18.0" />
                            </font></Text>
-                        <Text layoutX="27.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reciever Account:">
+                        <Text layoutX="19.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reciever Account:">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
                         <Text fx:id="transAmount" layoutX="213.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="125.0" />
                         <Text fx:id="transDate" layoutX="207.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="137.13671875" />
-                        <Text layoutX="413.0" layoutY="284.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Card transaction amount:">
+                        <Text layoutX="405.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Card transaction amount:">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <Text layoutX="413.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Card transaction date:">
+                        <Text layoutX="405.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Card transaction date:">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <ComboBox fx:id="listTransaction" layoutX="179.0" layoutY="232.0" onAction="#showTransaction" onMouseClicked="#listAllTransaction" prefWidth="150.0" promptText="Select transaction" />
-                        <ComboBox fx:id="listCardTransaction" layoutX="600.0" layoutY="231.0" onAction="#showCardTransaction" onMouseClicked="#listAllCardTransaction" prefHeight="25.0" prefWidth="169.0" promptText="Select card transaction" />
+                        <ComboBox fx:id="listTransaction" layoutX="171.0" layoutY="70.0" onAction="#showTransaction" onMouseClicked="#listAllTransaction" prefWidth="150.0" promptText="Select transaction" />
+                        <ComboBox fx:id="listCardTransaction" layoutX="592.0" layoutY="69.0" onAction="#showCardTransaction" onMouseClicked="#listAllCardTransaction" prefHeight="25.0" prefWidth="169.0" promptText="Select card transaction" />
                         <Text fx:id="cardAmount" layoutX="622.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="85.5117118358612" />
                      </children></AnchorPane>
               </content>
@@ -172,8 +176,8 @@
                         <Text fx:id="IBstatus" layoutX="124.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="73.99999972898513" />
                         <Text fx:id="lastLogin" layoutX="162.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="184.000015437603" />
                         <Text fx:id="password" layoutX="162.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="63.13671875" />
-                        <Text fx:id="login" layoutX="136.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="56.000015437603" />
-                        <Button fx:id="showBtn" layoutX="65.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#showClientLogin" text="Show" />
+                        <Text fx:id="login" layoutX="136.0" layoutY="64.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" wrappingWidth="56.000015437603" />
+                        <Button fx:id="showBtn" layoutX="65.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#showClientLogin" text="Hide/Show" />
                         <Text fx:id="newPassword" layoutX="282.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" />
 
                      </children></AnchorPane>
@@ -185,7 +189,7 @@
       <Text fx:id="loggedAs" layoutX="613.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="85.51170681416988" />
       <Text fx:id="date" layoutX="328.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date: " />
       <Button fx:id="logOutbtn" layoutX="739.0" layoutY="5.0" mnemonicParsing="false" onAction="#logOut" text="LogOut" />
-      <ComboBox fx:id="list" layoutX="19.0" layoutY="5.0" onAction="#showClient" onMouseClicked="#listAllClients" prefWidth="150.0" promptText="Choose Client" />
+      <ComboBox fx:id="list" layoutX="15.0" layoutY="5.0" onAction="#showClient" onMouseClicked="#listAllClients" prefWidth="150.0" promptText="Choose Client" />
       <Button layoutX="191.0" layoutY="5.0" mnemonicParsing="false" onMouseClicked="#createNewClient" text="New Client" />
       <Text fx:id="date" layoutX="359.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="108.13671875" />
    </children>

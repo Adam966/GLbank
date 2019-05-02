@@ -45,14 +45,17 @@ public class MainPage {
     public Text name;
     public Text surname;
     public Text email;
+    public Text clientDesc;
 
     public Text money;
     public ComboBox accountList;
+    public Text accountDesc;
 
     public ComboBox cardList;
     public Text cardPin;
     public Text status;
     public Text expireDate;
+    public Text cardDesc;
 
     public Text login;
     public Text password;
@@ -64,10 +67,10 @@ public class MainPage {
     public TextField moneyIns;
     public TextField moneyWidth;
     public Text lesserMoney;
+    public Text moneyDesc;
 
     public Text transAmount;
     public Text transDate;
-    public ComboBox listMonth;
     public ComboBox listTransaction;
     public ComboBox listCardTransaction;
     public Text cardAmount;
@@ -103,6 +106,13 @@ public class MainPage {
         date.setText(today.getDayOfMonth() + "/" + today.getMonth() + "/" + today.getYear());
     }
 
+    public void clearDescriptions() {
+        accountDesc.setVisible(false);
+        clientDesc.setVisible(false);
+        moneyDesc.setVisible(false);
+        cardDesc.setVisible(false);
+    }
+
     ////////////////////////////////////////////////// CLIENT FUNCTIONS ////////////////////////////////////////////////
     public void listAllClients() {
         clients = database.getAllClients();
@@ -125,13 +135,15 @@ public class MainPage {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("windows/newClientForm.fxml"));
 
-            Scene scene = new Scene(fxmlLoader.load(), 520 , 225);
+            Scene scene = new Scene(fxmlLoader.load(), 420 , 400);
             Stage stage = new Stage();
 
             stage.setTitle("GL bank");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {}
+        clearDescriptions();
+        clientDesc.setVisible(true);
     }
 
     public void showClient() {
@@ -143,7 +155,9 @@ public class MainPage {
     //////////////////////////////////////////// ACCOUNT FUNCTIONS /////////////////////////////////////////////////////
     public void createNewAcc(MouseEvent mouseEvent) {
         long number = (long) Math.floor(Math.random() * 9_000_000_000L) + 1_000_000_000L;
-        database.inserNewAccount(selectedAccount().getID(), String.valueOf(number), 0);
+        database.inserNewAccount(selectedClient() .getID(), String.valueOf(number), 0);
+        clearDescriptions();
+        accountDesc.setVisible(true);
     }
 
     public void listAllAccounts(MouseEvent mouseEvent) {
@@ -173,6 +187,8 @@ public class MainPage {
     public void insertMoney(ActionEvent actionEvent) {
         database.insertMoney(Float.valueOf(moneyIns.getText()) + selectedAccount().getMoney(), selectedAccount().getID());
         moneyIns.clear();
+        clearDescriptions();
+        money.setVisible(true);
     }
 
     public void moneyWithdraw(ActionEvent actionEvent) {
@@ -181,6 +197,8 @@ public class MainPage {
         else {
             database.insertMoney(selectedAccount().getMoney() - Float.valueOf(moneyWidth.getText()), selectedAccount().getID());
             moneyWidth.clear();
+            clearDescriptions();
+            money.setVisible(true);
         }
     }
 
@@ -218,24 +236,41 @@ public class MainPage {
         LocalDate today = LocalDate.now();
 
         database.insertNewCard(String.valueOf(pin), 1, today.getYear() + 3, today.getMonthValue(), selectedAccount().getID(), String.valueOf(cardNum));
+        clearDescriptions();
+        cardDesc.setVisible(true);
     }
 
     //////////////////////////////////////////////////// IB FUNCTIONS //////////////////////////////////////////////////
     public void showClientLogin() {
-        ClientLogin cl = database.selectClientLogin(selectedClient().getID());
+        if (!(login.isVisible())) {
+            login.setVisible(true);
+            password.setVisible(true);
+            lastLogin.setVisible(true);
+            IBstatus.setVisible(true);
 
-        login.setText(cl.getLogin());
-        password.setText(cl.getPassword());
+            ClientLogin cl = database.selectClientLogin(selectedClient().getID());
 
-        Date date = new Date(cl.getLastLogin().getTime());
-        lastLogin.setText(String.valueOf(date));
+            login.setVisible(true);
+            login.setText(cl.getLogin());
+            password.setText(cl.getPassword());
 
-        if (cl.getStatus()) {
-            IBstatus.setText("aktívný");
+            Date date = new Date(cl.getLastLogin().getTime());
+            lastLogin.setText(String.valueOf(date));
+
+            if (cl.getStatus()) {
+                IBstatus.setText("aktívný");
+            }
+            else {
+                IBstatus.setText("zablokovany");
+            }
         }
         else {
-            IBstatus.setText("zablokovany");
+            login.setVisible(false);
+            password.setVisible(false);
+            lastLogin.setVisible(false);
+            IBstatus.setVisible(false);
         }
+
     }
 
     public void resetClientAccount(MouseEvent mouseEvent) {
@@ -283,6 +318,7 @@ public class MainPage {
         listTransaction.setItems(transactionBox);
     }
 
+//////////////////////////////////// CARD TRANSACTION //////////////////////////////////////////////////////////////////
     public void listAllCardTransaction(MouseEvent mouseEvent) {
         cardTransactions = database.selectAllCardTransaction(selectedCard().getID());
 
