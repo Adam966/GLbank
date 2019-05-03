@@ -43,7 +43,7 @@ public class Card {
         return cardNum;
     }
 
-    public int getID() {
+    public int getID()        {
         return ID;
     }
 }

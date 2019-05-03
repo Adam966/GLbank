@@ -24,7 +24,8 @@ public class Database {
     private static final String insertNewAccountPassword = "UPDATE loginClient SET password = ? WHERE IDClient  LIKE ?";
     private static final String insertNewIBClient = "INSERT INTO loginClient (login, password, IDClient) VALUE (?, ?, @@Identity)";
     private static final String insertMoney = "UPDATE account SET amount =  ? WHERE ID LIKE ?";
-    private static final String setSelectAllTransaction = "SELECT * FROM transaction WHERE IDAccount LIKE ?";
+    private static final String insertTransaction = "INSERT INTO transactions (transAmount, IDAccount, IDEmployee, RecAccount) VALUES (?,?,?,?)";
+    private static final String setSelectAllTransaction = "SELECT * FROM transactions WHERE IDAccount LIKE ?";
     private static final String setSelectAllCardTransaction = "SELECT * FROM cardTrans WHERE IDCard LIKE ?";
 
     private Connection getConn()
@@ -253,13 +254,25 @@ public class Database {
         }
     }
 
-    public void insertMoney(float money, int IDAccount) {
+    public void insertMoney(float money, int IDAccount, int IDEmployee, String acc, float mon) {
         Connection conn = getConn();
 
         try {
             PreparedStatement stm = conn.prepareStatement(insertMoney);
             stm.setFloat(1, money);
             stm.setInt(2, IDAccount);
+
+            stm.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            PreparedStatement stm = conn.prepareStatement(insertTransaction);
+            stm.setFloat(1, mon);
+            stm.setInt(2, IDAccount);
+            stm.setInt(3, IDEmployee);
+            stm.setString(4, acc);
 
             stm.executeUpdate();
         } catch (SQLException e) {

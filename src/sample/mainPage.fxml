@@ -134,8 +134,8 @@
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <Text fx:id="transAmount" layoutX="213.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="125.0" />
-                        <Text fx:id="transDate" layoutX="207.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="137.13671875" />
+                        <Text fx:id="transAmount" layoutX="213.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="125.0" />
+                        <Text fx:id="transDate" layoutX="207.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="177.13671875" />
                         <Text layoutX="405.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Card transaction amount:">
                            <font>
                               <Font size="18.0" />
@@ -149,6 +149,11 @@
                         <ComboBox fx:id="listTransaction" layoutX="171.0" layoutY="70.0" onAction="#showTransaction" onMouseClicked="#listAllTransaction" prefWidth="150.0" promptText="Select transaction" />
                         <ComboBox fx:id="listCardTransaction" layoutX="592.0" layoutY="69.0" onAction="#showCardTransaction" onMouseClicked="#listAllCardTransaction" prefHeight="25.0" prefWidth="169.0" promptText="Select card transaction" />
                         <Text fx:id="cardAmount" layoutX="622.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="85.5117118358612" />
+                        <Text layoutX="338.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="€">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
                      </children></AnchorPane>
               </content>
             </Tab>

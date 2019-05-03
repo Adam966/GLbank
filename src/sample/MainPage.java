@@ -185,7 +185,7 @@ public class MainPage {
     }
 
     public void insertMoney(ActionEvent actionEvent) {
-        database.insertMoney(Float.valueOf(moneyIns.getText()) + selectedAccount().getMoney(), selectedAccount().getID());
+        database.insertMoney(Float.valueOf(moneyIns.getText()) + selectedAccount().getMoney(), selectedAccount().getID(), selectedClient().getID(), selectedAccount().getAccNum(), Float.valueOf(moneyIns.getText()));
         moneyIns.clear();
         clearDescriptions();
         money.setVisible(true);
@@ -195,7 +195,7 @@ public class MainPage {
         if (selectedAccount().getMoney() < Float.valueOf(moneyWidth.getText()))
             lesserMoney.setText("On account is not  enough money.");
         else {
-            database.insertMoney(selectedAccount().getMoney() - Float.valueOf(moneyWidth.getText()), selectedAccount().getID());
+            database.insertMoney(selectedAccount().getMoney() - Float.valueOf(moneyWidth.getText()), selectedAccount().getID(), selectedClient().getID(), selectedAccount().getAccNum(), Float.valueOf(moneyWidth.getText()));
             moneyWidth.clear();
             clearDescriptions();
             money.setVisible(true);
